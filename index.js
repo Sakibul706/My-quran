@@ -1,5 +1,5 @@
 const div = document.querySelector("#root");
-const bismillah = `\ufeff\u0628\u0650\u0633\u0652\u0645\u0650 \u0627\u0644\u0644\u0651\u064e\u0647\u0650 \u0627\u0644\u0631\u0651\u064e\u062d\u0652\u0645\u064e\u0670\u0646\u0650 \u0627\u0644\u0631\u0651\u064e\u062d\u0650\u064a\u0645\u0650`;
+let bismillah = `\ufeff\u0628\u0650\u0633\u0652\u0645\u0650 \u0627\u0644\u0644\u0651\u064e\u0647\u0650 \u0627\u0644\u0631\u0651\u064e\u062d\u0652\u0645\u064e\u0670\u0646\u0650 \u0627\u0644\u0631\u0651\u064e\u062d\u0650\u064a\u0645\u0650`;
 
 // axios
 //     .get("http://api.alquran.cloud/v1/surah")
@@ -82,14 +82,13 @@ axios
     .get(`https://api.quran.com/api/v4/chapters`)
     .then((res) => {
         const suras = res.data.chapters;
-        console.log(suras);
         // console.log(typeof suras);
         let divText = [];
         for (let sura of suras) {
             // console.log(sura);
             const sur = `
             <div class="surah">
-                <p>${sura.id} -<span> ${sura.name_arabic} </span> ${sura.name_simple} </p>
+                <p>${sura.id} -<span class="arabic-surah-name-li"> ${sura.name_arabic} </span> ${sura.name_simple} </p>
             </div>`;
             divText.push(sur);
         }
@@ -97,6 +96,7 @@ axios
         const divC = document.querySelectorAll(".surah");
         divC.forEach((item, index) => {
             item.addEventListener("click", () => {
+                document.body.innerText = "Loading..........";
                 loadSurah(`${index + 1}`);
             });
         });
@@ -117,7 +117,6 @@ function loadSurah(indx) {
                 )
                 .then((res) => {
                     const surah = res.data.verses;
-                    console.log(surah);
                     const ayaArr = [];
                     surah.forEach((item, index) => {
                         let ayaContent = item.text;
@@ -125,17 +124,22 @@ function loadSurah(indx) {
                         const aya = `
                             <div class="aya">
                                 <div>${item.verse_key}</div>
-                                <p>${item.text_uthmani}</p>
+                                <p class="aya-text">${item.text_uthmani}</p>
                                 <div id="aya-${index}-t" class="aya-translation"></div>
                             </div>`;
                         ayaArr.push(aya);
                     });
                     const ayaaa = ayaArr.toString().replace(/,/g, "");
+
+                    if (!suraData.bismillah_pre) {
+                        bismillah = "";
+                    }
+
                     const surahHtml = `
                         <a href="/">Back</a>
                         <h1>${suraData.name_simple}</h1>
                         <div class="imfo">${suraData.revelation_place}</div>
-                        <p>${bismillah}</p>
+                        <p id="bismillah">${bismillah}</p>
                             ${ayaaa}
                         `;
                     document.body.innerHTML = surahHtml;
@@ -145,12 +149,13 @@ function loadSurah(indx) {
 }
 
 function translations(index) {
+    document.querySelector(".aya-translation").innerText =
+        "Translations are loading......";
     axios
         .get(
             `http://api.alquran.cloud/v1/surah/${index}/editions/en.itani,bn.bengali`
         )
         .then((res) => {
-            console.log(res.data.data);
             const translationData = res.data.data;
             const elements = document.querySelectorAll(".aya-translation");
             elements.forEach((item, indx) => {
@@ -160,8 +165,6 @@ function translations(index) {
                     `;
             });
             const elemt = document.getElementById("aya-0-t");
-            console.log(elemt);
-            console.log(elements);
         });
 }
 
