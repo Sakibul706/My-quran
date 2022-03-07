@@ -97,9 +97,6 @@ axios
         const divC = document.querySelectorAll(".surah");
         divC.forEach((item, index) => {
             item.addEventListener("click", () => {
-                console.log(item);
-                // console.log(`${index + 1}`);
-
                 loadSurah(`${index + 1}`);
             });
         });
@@ -110,41 +107,40 @@ axios
 
 function loadSurah(indx) {
     axios
-        .get(
-            `https://api.quran.com/api/v4/quran/verses/uthmani?chapter_number=${indx}`
-        )
+        .get(`https://api.quran.com/api/v4/chapters/${indx}?language=en`)
         .then((res) => {
-            console.log(res);
-            const surah = res.data.verses;
-            console.log(surah);
-            // const ayahs = surah.verses;
-            const ayaArr = [];
-            surah.forEach((item, index) => {
-                let ayaContent = item.text;
-                // if (index === 0) {
-                //     console.log(ayaContent);
-                //     console.log(bismillah);
-                //     console.log(ayaContent.indexOf(bismillah));
-                //     ayaContent = ayaContent.replace(bismillah, "");
-                // }
-                const aya = `
-            <div class="aya">
-                <div>${index}</div>
-                <p>${item.text_uthmani}</p>
-                <div id="aya-${index}-t"></div>
-            </div>`;
-                ayaArr.push(aya);
-            });
-            const ayaaa = ayaArr.toString().replace(/,/g, "");
-            const surahHtml = `
-        <a href="/">Back</a>
-        <h1>${name}</h1>
-        <div class="imfo">${place}</div>
-        <p>${bismillah}</p>
-            ${ayaaa}
-        `;
-            document.body.innerHTML = surahHtml;
-            translations(indx);
+            const suraData = res.data.chapter;
+
+            axios
+                .get(
+                    `https://api.quran.com/api/v4/quran/verses/uthmani?chapter_number=${indx}`
+                )
+                .then((res) => {
+                    const surah = res.data.verses;
+                    console.log(surah);
+                    const ayaArr = [];
+                    surah.forEach((item, index) => {
+                        let ayaContent = item.text;
+
+                        const aya = `
+                            <div class="aya">
+                                <div>${item.verse_key}</div>
+                                <p>${item.text_uthmani}</p>
+                                <div id="aya-${index}-t"></div>
+                            </div>`;
+                        ayaArr.push(aya);
+                    });
+                    const ayaaa = ayaArr.toString().replace(/,/g, "");
+                    const surahHtml = `
+                        <a href="/">Back</a>
+                        <h1>${suraData.name_simple}</h1>
+                        <div class="imfo">${suraData.revelation_place}</div>
+                        <p>${bismillah}</p>
+                            ${ayaaa}
+                        `;
+                    document.body.innerHTML = surahHtml;
+                    translations(indx);
+                });
         });
 }
 
