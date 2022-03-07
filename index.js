@@ -126,7 +126,7 @@ function loadSurah(indx) {
                             <div class="aya">
                                 <div>${item.verse_key}</div>
                                 <p>${item.text_uthmani}</p>
-                                <div id="aya-${index}-t"></div>
+                                <div id="aya-${index}-t" class="aya-translation"></div>
                             </div>`;
                         ayaArr.push(aya);
                     });
@@ -151,6 +151,17 @@ function translations(index) {
         )
         .then((res) => {
             console.log(res.data.data);
+            const translationData = res.data.data;
+            const elements = document.querySelectorAll(".aya-translation");
+            elements.forEach((item, indx) => {
+                item.innerHTML = `
+                    <p>${translationData[0].ayahs[indx].text}</p>
+                    <p>${translationData[1].ayahs[indx].text}</p>
+                    `;
+            });
+            const elemt = document.getElementById("aya-0-t");
+            console.log(elemt);
+            console.log(elements);
         });
 }
 
