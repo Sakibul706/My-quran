@@ -1,10 +1,16 @@
 .surah-body {
     font-family: "Source Sans Pro", sans-serif;
-    margin: 0.5rem 1rem;
+    /* margin: 0.5rem 1rem; */
+}
+
+.surah-body h1 {
+    margin: 0.7rem 0 0.5rem 1rem;
 }
 
 .surah-body .imfo {
     text-transform: uppercase;
+    margin-left: 1rem;
+    font-weight: 600;
 }
 
 .surah-body .verse-key {
@@ -37,7 +43,7 @@
     width: 3rem;
     height: 3rem;
     display: inline-block;
-    background-color: rgb(97, 108, 255);
+    background-color: rgb(73, 119, 119);
     padding: 0.5rem;
     border-radius: 50%;
     position: fixed;
@@ -45,10 +51,22 @@
     right: 0;
     margin-right: 2rem;
     margin-bottom: 2rem;
+    transition: background-color 400ms ease-in-out;
+}
+
+.surah-body #back-btn:hover {
+    background-color: rgb(38, 64, 64);
 }
 
 .surah-body #back-btn svg {
     width: 2rem;
     height: 2rem;
     fill: white;
+}
+
+@media (min-width: 768px) {
+    .surah-body .aya {
+        padding-left: 7rem;
+        padding-right: 7rem;
+    }
 }

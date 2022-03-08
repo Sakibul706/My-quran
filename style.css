@@ -45,9 +45,8 @@ body {
 
 .surah p {
     margin: 0;
-    /* border: 2px solid black; */
-    background-color: rgb(216, 245, 245);
-    padding: 0.5rem 0.5rem;
+    background-color: rgb(230, 251, 251);
+    padding: 1rem 0.5rem;
     border-radius: 0.5em;
     font-family: "Source Sans Pro", sans-serif;
     font-weight: 600;
@@ -55,6 +54,7 @@ body {
     gap: 0.5rem;
     justify-content: center;
     align-items: center;
+    transition: background-color 400ms ease-in-out;
 }
 
 .surah p .surah-no {
@@ -64,9 +64,10 @@ body {
 }
 
 .surah p:hover {
-    background-color: rgba(194, 194, 194, 0.335);
+    background-color: rgb(159, 248, 248);
 }
 
 .arabic-surah-name-li {
     margin-left: auto;
+    margin-right: 0.5rem;
 }

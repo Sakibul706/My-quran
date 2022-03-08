@@ -143,6 +143,7 @@ function loadSurah(indx) {
                         <a href="/" id="back-btn"> ${backSvg}</a>
                         <h1>${suraData.name_simple}</h1>
                         <div class="imfo">${suraData.revelation_place}</div>
+                        <div id="translation-imfo"></div>
                         <p id="bismillah">${bismillah}</p>
                            <div class="ayas"> ${ayaaa} </div>
                     </div>
@@ -153,23 +154,72 @@ function loadSurah(indx) {
         });
 }
 
+// function translations(index) {
+//     document.querySelector(".aya-translation").innerText =
+//         "Translations are loading......";
+//     axios
+//         .get(
+//             `http://api.alquran.cloud/v1/surah/${index}/editions/en.itani,bn.bengali`
+//         )
+//         .then((res) => {
+//             const translationData = res.data.data;
+//             console.log(translationData);
+//             const elements = document.querySelectorAll(".aya-translation");
+//             elements.forEach((item, indx) => {
+//                 item.innerHTML = `
+//                     <p class="en-trans">${translationData[0].ayahs[indx].text}</p>
+//                     <p class="bn-trans">${translationData[1].ayahs[indx].text}</p>
+//                     `;
+//             });
+//         });
+// }
+
+/*************************** */
 function translations(index) {
     document.querySelector(".aya-translation").innerText =
         "Translations are loading......";
+
     axios
         .get(
-            `http://api.alquran.cloud/v1/surah/${index}/editions/en.itani,bn.bengali`
+            `https://api.quran.com/api/v4/quran/translations/131?chapter_number=${index}`
         )
         .then((res) => {
-            const translationData = res.data.data;
-            const elements = document.querySelectorAll(".aya-translation");
-            elements.forEach((item, indx) => {
-                item.innerHTML = `
-                    <p class="en-trans">${translationData[0].ayahs[indx].text}</p>
-                    <p class="bn-trans">${translationData[1].ayahs[indx].text}</p>
+            let enT = res.data;
+            axios
+                .get(
+                    `https://api.quran.com/api/v4/quran/translations/161?chapter_number=${index}`
+                )
+                .then((res) => {
+                    let bnT = res.data;
+
+                    console.log(enT.translations);
+                    console.log(bnT.translations);
+
+                    const elements =
+                        document.querySelectorAll(".aya-translation");
+                    elements.forEach((item, indx) => {
+                        item.innerHTML = `
+                    <p class="en-trans">${enT.translations[indx].text}</p>
+                    <p class="bn-trans">${bnT.translations[indx].text}</p>
                     `;
-            });
+                    });
+                });
         });
+    // axios
+    //     .get(
+    //         `http://api.alquran.cloud/v1/surah/${index}/editions/en.itani,bn.bengali``https://api.quran.com/api/v4/quran/translations/131?chapter_number=1`
+    //     )
+    //     .then((res) => {
+    //         const translationData = res.data.data;
+    //         console.log(translationData);
+    //         const elements = document.querySelectorAll(".aya-translation");
+    //         elements.forEach((item, indx) => {
+    //             item.innerHTML = `
+    //                 <p class="en-trans">${translationData[0].ayahs[indx].text}</p>
+    //                 <p class="bn-trans">${translationData[1].ayahs[indx].text}</p>
+    //                 `;
+    //         });
+    //     });
 }
 
 // async function data() {
@@ -181,10 +231,24 @@ function translations(index) {
 // console.log(deta);
 // data();
 
-// async function data() {
-//     const aa = await axios.get(
-//         `https://api.quran.com/api/v4/quran/verses/uthmani?chapter_number=1`
-//     );
-//     console.log(aa);
+// function data() {
+//     let aa;
+//     axios
+//         .get(
+//             `https://api.quran.com/api/v4/quran/translations/131?chapter_number=1`
+//         )
+//         .then((res) => {
+//             aa = res.data;
+//             axios
+//                 .get(
+//                     `https://api.quran.com/api/v4/quran/translations/161?chapter_number=1`
+//                 )
+//                 .then((res) => {
+//                     console.log(aa);
+//                     console.log(res);
+//                 });
+//         });
 // }
+
 // data();
+// 161;
