@@ -4,91 +4,12 @@ const backSvg = `<svg  width="16" height="16" fill="currentColor" class="bi bi-a
                  <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
                  </svg>`;
 
-// axios
-//     .get("http://api.alquran.cloud/v1/surah")
-//     .then((res) => {
-//         const suras = res.data.data;
-//         // console.log(suras);
-//         // console.log(typeof suras);
-//         let divText = [];
-//         for (let k in suras) {
-//             let sura = suras[k];
-//             // console.log(sura);
-//             const sur = `
-//             <div class="surah">
-//                 <p>${sura.number} -<span> ${sura.name} </span> ${sura.englishName} </p>
-//             </div>`;
-//             divText.push(sur);
-//         }
-//         div.innerHTML = divText.toString().replace(/,/g, "");
-//         const divC = document.querySelectorAll(".surah");
-//         divC.forEach((item, index) => {
-//             item.addEventListener("click", () => {
-//                 // console.log(`${index + 1}`);
-//                 loadSurah(`${index + 1}`);
-//             });
-//         });
-//     })
-//     .catch((err) => {
-//         console.log(err);
-//     });
-
-// function loadSurah(indx) {
-//     axios.get(`http://api.alquran.cloud/v1/surah/${indx}`).then((res) => {
-//         const surah = res.data.data;
-//         console.log(surah);
-//         const ayahs = surah.ayahs;
-//         const ayaArr = [];
-//         ayahs.forEach((item, index) => {
-//             let ayaContent = item.text;
-//             if (index === 0) {
-//                 console.log(ayaContent);
-//                 console.log(bismillah);
-//                 console.log(ayaContent.indexOf(bismillah));
-//                 ayaContent = ayaContent.replace(bismillah, "");
-//             }
-//             const aya = `
-//             <div class="aya">
-//                 <div>${index}</div>
-//                 <p>${item.text}</p>
-//                 <div id="aya-${index}-t"></div>
-//             </div>`;
-//             ayaArr.push(aya);
-//         });
-//         const ayaaa = ayaArr.toString().replace(/,/g, "");
-//         const surahHtml = `
-//         <a href="/">Back</a>
-//         <h1>${surah.englishName}</h1>
-//         <div class="imfo">${surah.revelationType}</div>
-//         <p>${bismillah}</p>
-//             ${ayaaa}
-//         `;
-//         document.body.innerHTML = surahHtml;
-//         translations(indx);
-//     });
-// }
-
-// function translations(index) {
-//     axios
-//         .get(
-//             `http://api.alquran.cloud/v1/surah/${index}/editions/en.itani,bn.bengali`
-//         )
-//         .then((res) => {
-//             console.log(res.data.data);
-//         });
-// }
-
-///***************************************************************
-/*88888888888888888888888888888888 */
-
 axios
     .get(`https://api.quran.com/api/v4/chapters`)
     .then((res) => {
         const suras = res.data.chapters;
-        // console.log(typeof suras);
         let divText = [];
         for (let sura of suras) {
-            // console.log(sura);
             const sur = `
             <div class="surah">
                 <p> <span class="surah-no">${sura.id}</span> <span>${sura.name_simple}</span> <span class="arabic-surah-name-li"> ${sura.name_arabic} </span></p>
@@ -99,7 +20,8 @@ axios
         const divC = document.querySelectorAll(".surah");
         divC.forEach((item, index) => {
             item.addEventListener("click", () => {
-                document.body.innerText = "Loading..........";
+                let surahLoading = "Loading......";
+                document.innerText = surahLoading;
                 loadSurah(`${index + 1}`);
             });
         });
@@ -154,30 +76,13 @@ function loadSurah(indx) {
         });
 }
 
-// function translations(index) {
-//     document.querySelector(".aya-translation").innerText =
-//         "Translations are loading......";
-//     axios
-//         .get(
-//             `http://api.alquran.cloud/v1/surah/${index}/editions/en.itani,bn.bengali`
-//         )
-//         .then((res) => {
-//             const translationData = res.data.data;
-//             console.log(translationData);
-//             const elements = document.querySelectorAll(".aya-translation");
-//             elements.forEach((item, indx) => {
-//                 item.innerHTML = `
-//                     <p class="en-trans">${translationData[0].ayahs[indx].text}</p>
-//                     <p class="bn-trans">${translationData[1].ayahs[indx].text}</p>
-//                     `;
-//             });
-//         });
-// }
-
-/*************************** */
 function translations(index) {
-    document.querySelector(".aya-translation").innerText =
-        "Translations are loading......";
+    let transLoad = "Translations are loading.....";
+
+    document.querySelector(".aya-translation").innerText = transLoad;
+
+    // document.querySelector(".aya-translation").innerText =
+    //     "Translations are loading......";
 
     axios
         .get(
@@ -205,50 +110,15 @@ function translations(index) {
                     });
                 });
         });
-    // axios
-    //     .get(
-    //         `http://api.alquran.cloud/v1/surah/${index}/editions/en.itani,bn.bengali``https://api.quran.com/api/v4/quran/translations/131?chapter_number=1`
-    //     )
-    //     .then((res) => {
-    //         const translationData = res.data.data;
-    //         console.log(translationData);
-    //         const elements = document.querySelectorAll(".aya-translation");
-    //         elements.forEach((item, indx) => {
-    //             item.innerHTML = `
-    //                 <p class="en-trans">${translationData[0].ayahs[indx].text}</p>
-    //                 <p class="bn-trans">${translationData[1].ayahs[indx].text}</p>
-    //                 `;
-    //         });
-    //     });
 }
 
 // async function data() {
-//     const aa = await axios.get(`https://api.quran.com/api/v4/chapters`);
+//     const aa = await axios.get(
+//         `https://download.quranicaudio.com/qdc/mishari_al_afasy/murattal/2.mp3`
+//     );
 //     console.log(aa);
 // }
 
-// const deta = data();
-// console.log(deta);
+// // const deta = data();
+// // console.log(deta);
 // data();
-
-// function data() {
-//     let aa;
-//     axios
-//         .get(
-//             `https://api.quran.com/api/v4/quran/translations/131?chapter_number=1`
-//         )
-//         .then((res) => {
-//             aa = res.data;
-//             axios
-//                 .get(
-//                     `https://api.quran.com/api/v4/quran/translations/161?chapter_number=1`
-//                 )
-//                 .then((res) => {
-//                     console.log(aa);
-//                     console.log(res);
-//                 });
-//         });
-// }
-
-// data();
-// 161;
