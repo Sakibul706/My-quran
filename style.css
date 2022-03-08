@@ -9,7 +9,12 @@
     src: url(assets/uthman_tn09.otf);
 }
 
-@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@300;500&display=swap");
+@font-face {
+    font-family: bangla-font;
+    src: url(assets/SolaimanLipi.ttf);
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;600&display=swap");
 
 body {
     margin: 0;
@@ -20,20 +25,11 @@ body {
 .arabic-surah-name-li,
 #bismillah {
     font-family: arabic-c-font;
+    font-weight: 300;
 }
 
 #bismillah {
     text-align: center;
-}
-
-.aya-text {
-    font-family: arabic-c-font;
-    text-align: right;
-    font-size: 2.3rem;
-}
-
-.bangla-trans {
-    font-family: "Hind Siliguri", sans-serif;
 }
 
 #root {
@@ -49,10 +45,12 @@ body {
 
 .surah p {
     margin: 0;
-    border: 2px solid black;
+    /* border: 2px solid black; */
+    background-color: rgb(216, 245, 245);
     padding: 0.5rem 0.5rem;
     border-radius: 0.5em;
-    font-family: "Fredoka", sans-serif;
+    font-family: "Source Sans Pro", sans-serif;
+    font-weight: 600;
     display: flex;
     gap: 0.5rem;
     justify-content: center;
@@ -61,6 +59,8 @@ body {
 
 .surah p .surah-no {
     color: rgb(22, 22, 22);
+    font-weight: 300;
+    margin-left: 0.5rem;
 }
 
 .surah p:hover {
