@@ -3,28 +3,45 @@
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta
+            http-equiv="Content-Security-Policy"
+            content="upgrade-insecure-requests"
+        />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script
+            defer
+            src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"
+        ></script>
         <script defer src="index.js"></script>
+
         <style>
             @font-face {
-                font-family: myFirstFont;
-                src: url(assets/KFGQPC\ Uthmanic\ Script\ HAFS\ Regular.otf);
+                font-family: arabic-c-font;
+                src: url(assets/uthman_tn09.otf);
+            }
+            body {
+                font-size: 2rem;
             }
 
-            body {
-                font-family: myFirstFont;
+            .arabic-surah-name-li,
+            #bismillah {
+                font-family: arabic-c-font;
+            }
+
+            #bismillah {
+                text-align: center;
+            }
+
+            .aya-text {
+                font-family: arabic-c-font;
+                text-align: right;
+                font-size: 2.3rem;
             }
         </style>
-        <title>Document</title>
+
+        <title>My Quran</title>
     </head>
     <body>
-        <div class="go-back">go bck</div>
-        <h1>Suha Name</h1>
-
-        <div class="imfo">Makki?</div>
-        <div>
-            <div>aya - 100</div>
-            <div class="aya">Lorem ipsum</div>
-        </div>
+        <div id="root"></div>
     </body>
 </html>

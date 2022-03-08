@@ -1,0 +1,72 @@
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: arabic-c-font;
+    src: url(assets/uthman_tn09.otf);
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@300;500&display=swap");
+
+body {
+    margin: 0;
+    font-size: 2rem;
+    padding: 0;
+}
+
+.arabic-surah-name-li,
+#bismillah {
+    font-family: arabic-c-font;
+}
+
+#bismillah {
+    text-align: center;
+}
+
+.aya-text {
+    font-family: arabic-c-font;
+    text-align: right;
+    font-size: 2.3rem;
+}
+
+.bangla-trans {
+    font-family: "Hind Siliguri", sans-serif;
+}
+
+#root {
+    margin: 1rem 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 1rem;
+}
+
+/* .surah {
+    max-width: 20rem;
+} */
+
+.surah p {
+    margin: 0;
+    border: 2px solid black;
+    padding: 0.5rem 0.5rem;
+    border-radius: 0.5em;
+    font-family: "Fredoka", sans-serif;
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.surah p .surah-no {
+    color: rgb(22, 22, 22);
+}
+
+.surah p:hover {
+    background-color: rgba(194, 194, 194, 0.335);
+}
+
+.arabic-surah-name-li {
+    margin-left: auto;
+}

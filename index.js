@@ -88,7 +88,7 @@ axios
             // console.log(sura);
             const sur = `
             <div class="surah">
-                <p>${sura.id} -<span class="arabic-surah-name-li"> ${sura.name_arabic} </span> ${sura.name_simple} </p>
+                <p> <span class="surah-no">${sura.id}</span> <span>${sura.name_simple}</span> <span class="arabic-surah-name-li"> ${sura.name_arabic} </span></p>
             </div>`;
             divText.push(sur);
         }
@@ -161,10 +161,9 @@ function translations(index) {
             elements.forEach((item, indx) => {
                 item.innerHTML = `
                     <p>${translationData[0].ayahs[indx].text}</p>
-                    <p>${translationData[1].ayahs[indx].text}</p>
+                    <p class="bangla-trans">${translationData[1].ayahs[indx].text}</p>
                     `;
             });
-            const elemt = document.getElementById("aya-0-t");
         });
 }
 
